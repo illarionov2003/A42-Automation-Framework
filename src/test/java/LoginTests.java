@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.UUID;
 
 public class LoginTests extends BaseTest {
     @Test
@@ -15,6 +16,7 @@ public class LoginTests extends BaseTest {
 //      Added ChromeOptions argument below to fix websocket error
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
+//        options.addArguments("--disable-notifications");
 
         WebDriver driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -97,5 +99,10 @@ public class LoginTests extends BaseTest {
         submitLoginButton.click();
         Assert.assertTrue(submitLoginButton.isDisplayed());
         driver.quit();
+    }
+
+
+    public String generateRandomName() {
+        return UUID.randomUUID().toString().replace("-", "");//
     }
 }
