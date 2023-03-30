@@ -32,3 +32,8 @@ task testSmoke(type: Test) {
         suites "src/test/resources/Smoke.xml"
     }
 }
+task testNewConfig(type: Test) {
+    useTestNG() {
+        suites "src/test/resources/NewConfig.xml"
+    }
+}

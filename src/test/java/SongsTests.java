@@ -40,6 +40,10 @@ public class SongsTests extends BaseTest {
         // assert
         WebElement successBanner = driver.findElement(By.cssSelector(".success.show"));
         Assert.assertTrue(successBanner.isDisplayed());
+
+        //progress bar
+        WebElement progressbar= driver.findElement(By.cssSelector("Assert.assertTrue(successBanner.isDisplayed());"));
+        Assert.assertTrue(successBanner.isDisplayed());
     }
 
 
