@@ -10,7 +10,7 @@ import java.util.List;
 public class SongsTests extends BaseTest {
 
     @Test
-    public void addSongToPlaylist()  {
+    public void addSongToPlaylist() {
 
         String song = "Waiting on a train";
         // login
@@ -42,8 +42,22 @@ public class SongsTests extends BaseTest {
         Assert.assertTrue(successBanner.isDisplayed());
     }
 
-
-
+    @Test
+    public void playSong() {
+        // login
+        login("demo@class.com", "te$t$tudent");
+        // hover
+        WebElement playControlPanel = driver.findElement(By.cssSelector(".player-controls"));
+        new Actions(driver)
+                .moveToElement(playControlPanel)
+                .perform();
+        // start song
+        WebElement playBtn = driver.findElement(By.cssSelector("[data-testid='play-btn']"));
+        playBtn.click();
+        // assert
+        WebElement pauseBtn = driver.findElement(By.cssSelector("[data-testid='pause-btn']"));
+        Assert.assertTrue(pauseBtn.isDisplayed());
+    }
 
 
 }
