@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
@@ -12,8 +13,7 @@ import java.time.Duration;
 public class BaseTest {
     static WebDriver driver;
     WebDriverWait wait;
-//    public String url = "https://bbb.testpro.io/";
-    public String url;
+    public String url = "https://bbb.testpro.io/";
 
 
     @BeforeSuite
@@ -22,17 +22,14 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    @Parameters({"BaseURL"})
-    public void setUpBrowser(String BaseURL) {
+    public void setUpBrowser() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications");
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+       // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         wait = new WebDriverWait(driver, Duration.ofSeconds(4));
         driver.manage().window().maximize();
-        url = BaseURL;
         driver.get(url);
     }
 
@@ -55,7 +52,7 @@ public class BaseTest {
     }
 
     protected void enterEmail(String email) {
-        WebElement emailInput = driver.findElement(By.xpath("//input[@type='email']"));
+        WebElement emailInput = waitUntilVisible(By.xpath("//input[@type='email']"));
         emailInput.click();
         emailInput.clear();
         emailInput.sendKeys(email);
@@ -73,5 +70,9 @@ public class BaseTest {
                 {"demo@class.com", ""},
                 {"", ""},
         };
+    }
+
+    public WebElement waitUntilVisible(By element){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 }
