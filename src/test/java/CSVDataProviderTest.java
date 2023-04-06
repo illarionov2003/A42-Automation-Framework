@@ -3,6 +3,7 @@ import org.testng.annotations.DataProvider;
 
 import com.opencsv.CSVReader;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 import java.io.Reader;
 import java.nio.file.Files;
@@ -11,6 +12,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class CSVDataProviderTest extends BaseTest {
+
+    LoginPage loginPage = new LoginPage();
 
     @DataProvider(name = "getCredentialsData")
     // Method to read the data from .csv file and return it as array
@@ -35,7 +38,9 @@ public class CSVDataProviderTest extends BaseTest {
     @Test(dataProvider = "getCredentialsData")
     // test that uses data from csv file
     public void negativeLoginTests(String email, String password) {
-        login(email, password);
-        Assert.assertEquals(driver.getCurrentUrl(), url);
+        loginPage.login(email, password);
+        Assert.assertEquals(basePage.getDriver().getCurrentUrl(), url);
     }
+
+
 }

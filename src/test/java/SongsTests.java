@@ -1,63 +1,45 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.util.List;
+import pages.HomePage;
+import pages.LoginPage;
+import pages.PlaylistsPage;
+import pages.SongsPage;
 
 public class SongsTests extends BaseTest {
+
+    LoginPage loginPage = new LoginPage();
+    HomePage homePage = new HomePage();
+    PlaylistsPage playlistsPage = new PlaylistsPage();
+    SongsPage songsPage = new SongsPage();
 
     @Test
     public void addSongToPlaylist() {
 
         String song = "Waiting on a train";
         // login
-        login("demo@class.com", "te$t$tudent");
+        loginPage.login("demo@class.com", "te$t$tudent");
         // search song
-        WebElement searchField = driver.findElement(By.cssSelector("[type='search']"));
-        searchField.click();
-        searchField.clear();
-        searchField.sendKeys(song);
+        homePage.search(song);
         // click view all
-        WebElement viewAllBtn = driver.findElement(By.cssSelector("[data-test='view-all-songs-btn']"));
-        viewAllBtn.click();
+        homePage.viewAllSearchResults();
         // click on the first song
-        List<WebElement> songResults = driver.findElements(By.cssSelector("#songResultsWrapper .song-item"));
-        songResults.get(0).click();
-        // add to playlist
-        WebElement addToBtn = driver.findElement(By.cssSelector("[data-test='add-to-btn']"));
-        addToBtn.click();
+        homePage.clickFirstSearchResult();
+        // click add to playlist
+        playlistsPage.addSongToPlaylist();
         // create a new playlist
-        List<WebElement> listNameField = driver.findElements(By.cssSelector(".form-save [data-test='new-playlist-name']"));
-        listNameField.get(2).click();
-        listNameField.get(2).clear();
-        listNameField.get(2).sendKeys("123");
-        new Actions(driver)
-                .keyDown(Keys.ENTER)
-                .perform();
-        // assert
-        WebElement successBanner = driver.findElement(By.cssSelector(".success.show"));
-        Assert.assertTrue(successBanner.isDisplayed());
+        playlistsPage.createNewPlaylistWhileAddingSong("123");
+        Assert.assertTrue(homePage.getSuccessBanner().isDisplayed());
     }
 
     @Test
     public void playSong() {
         // login
-        login("demo@class.com", "te$t$tudent");
+        loginPage.login("demo@class.com", "te$t$tudent");
         // hover
-        WebElement playControlPanel = driver.findElement(By.cssSelector(".player-controls"));
-        new Actions(driver)
-                .moveToElement(playControlPanel)
-                .perform();
+        songsPage.hoverOverPlayControl();
         // start song
-        WebElement playBtn = driver.findElement(By.cssSelector("[data-testid='play-btn']"));
-        playBtn.click();
+        songsPage.playSong();
         // assert
-        WebElement pauseBtn = driver.findElement(By.cssSelector("[data-testid='pause-btn']"));
-        Assert.assertTrue(pauseBtn.isDisplayed());
+        Assert.assertTrue(songsPage.getPauseButton().isDisplayed());
     }
-
-
 }
