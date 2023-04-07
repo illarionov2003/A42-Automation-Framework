@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -15,6 +16,7 @@ public class BaseTest {
     static WebDriver driver;
     WebDriverWait wait;
     public String url = "https://bbb.testpro.io/";
+    Actions actions;
 
 
     @BeforeSuite
@@ -32,6 +34,8 @@ public class BaseTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(4));
         driver.manage().window().maximize();
         driver.get(url);
+        actions = new Actions(driver);
+
     }
 
     @AfterMethod(alwaysRun = true)
