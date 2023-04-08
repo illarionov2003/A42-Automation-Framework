@@ -3,7 +3,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -20,6 +20,7 @@ public class ActionsTests extends BaseTest {
 
     @Test
     public void playSongTest() {
+        PageFactory.initElements(getDriver(), loginPage);
         // hover over in clickPlayBtn
         loginPage.login("demo@class.com", "te$t$tudent");
         clickPlayBtn();
@@ -44,6 +45,7 @@ public class ActionsTests extends BaseTest {
 
     @Test
     public void renamePlaylist() {
+        PageFactory.initElements(getDriver(), loginPage);
         // double click
         String playlistName = "Summer songs";
 
@@ -56,6 +58,7 @@ public class ActionsTests extends BaseTest {
 
     @Test
     public void playSongFromListTest() throws InterruptedException {
+        PageFactory.initElements(getDriver(), loginPage);
         // right click
         loginPage.login("demo@class.com", "te$t$tudent");
         goToAllSongs();
@@ -107,7 +110,7 @@ public class ActionsTests extends BaseTest {
 
     @Test
     public void countSongsInPlaylist() {
-
+        PageFactory.initElements(getDriver(), loginPage);
         loginPage.login("demo@class.com", "te$t$tudent");
         WebElement playlist = basePage.waitUntilVisible(By.cssSelector(".playlist:nth-child(4)"));
         playlist.click();
