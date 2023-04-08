@@ -1,3 +1,4 @@
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.HomePage;
@@ -16,6 +17,7 @@ public class SongsTests extends BaseTest {
     public void addSongToPlaylist() {
 
         String song = "Waiting on a train";
+        PageFactory.initElements(getDriver(), loginPage);
         // login
         loginPage.login("demo@class.com", "te$t$tudent");
         // search song
@@ -33,6 +35,7 @@ public class SongsTests extends BaseTest {
 
     @Test
     public void playSong() {
+        PageFactory.initElements(getDriver(), loginPage);
         // login
         loginPage.login("demo@class.com", "te$t$tudent");
         // hover
