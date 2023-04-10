@@ -26,7 +26,6 @@ public class LoginTests extends BaseTest {
                 .enterEmail("demo@class.com")
                 .enterPassword("te$t$tudent")
                 .clickLoginButton();
-      //  loginPage.login("demo@class.com", "te$t$tudent");
         Assert.assertTrue(homePage.getAvatar().isDisplayed());
     }
 
