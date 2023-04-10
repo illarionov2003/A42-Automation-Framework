@@ -2,26 +2,28 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 public class LoginTests extends BaseTest {
+    LoginPage loginPage = new LoginPage();
     @Test
     public void successfulLoginTest() {
-        login("demo@class.com", "te$t$tudent");
-        WebElement avatar = driver.findElement(By.cssSelector("a .avatar"));
+        loginPage.login("demo@class.com", "te$t$tudent");
+        WebElement avatar = basePage.getDriver().findElement (By.cssSelector("a .avatar"));
         Assert.assertTrue(avatar.isDisplayed());
     }
 
     @Test
     public void wrongPasswordLoginTest() {
-        login("demo@class.com", "te$t$tuden");
-        WebElement submitLoginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+        loginPage.login("demo@class.com", "te$t$tuden");
+        WebElement submitLoginButton = basePage.getDriver().findElement(By.cssSelector("button[type='submit']"));
         Assert.assertTrue(submitLoginButton.isDisplayed());
     }
 
     @Test
     public void emptyPasswordLoginTest() {
-        login("demo@class.com", "");
-        WebElement submitLoginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+        loginPage.login("demo@class.com", "");
+        WebElement submitLoginButton = basePage.getDriver().findElement(By.cssSelector("button[type='submit']"));
         Assert.assertTrue(submitLoginButton.isDisplayed());
     }
 
