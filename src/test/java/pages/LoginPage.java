@@ -2,34 +2,53 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
+    public static LoginPage loginPage() {
+        return new LoginPage();
+    }
+
     //LOCATORS
-    By passwordField = By.cssSelector("[type='password']");
-    By emailField =  By.xpath("//input[@type='email']");
+    @FindBy(css = "[type='password']")
+    WebElement passwordInput;
+    @FindBy(xpath = "//input[@type='email']")
+    WebElement emailInput;
+    @FindBy(css = "button[type='submit']")
+    WebElement submitLoginBtn;
     By submitBtn = By.cssSelector("button[type='submit']");
+    //By passwordField = By.cssSelector("[type ='password']");
+    //By emailField =  By.xpath("//input[@type='email']");
+    // By submitBtn = By.cssSelector("button[type='submit']");
     public void login(String email, String password) {
         enterEmail(email);
         enterPassword(password);
         clickLoginButton();
     }
-
-    protected void enterPassword(String password) {
-        WebElement passwordInput = driver.findElement(passwordField);
+    public LoginPage enterPassword(String password) {
+        //WebElement passwordInput = driver.findElement(passwordField);
         passwordInput.click();
         passwordInput.clear();
         passwordInput.sendKeys(password);
+        return this;
     }
-
-    protected void enterEmail(String email) {
-        WebElement emailInput = driver.findElement(emailField);
+    public LoginPage enterEmail(String email) {
+        // WebElement emailInput = driver.findElement(emailField);
         emailInput.click();
         emailInput.clear();
         emailInput.sendKeys(email);
+        return this;
     }
-
-    protected void clickLoginButton() {
-        WebElement submitLoginButton = driver.findElement(submitBtn);
-        submitLoginButton.click();
+    public LoginPage clickLoginButton() {
+        // WebElement submitLoginButton = driver.findElement(submitBtn);
+        submitLoginBtn.click();
+        return this;
+    }
+    public WebElement getSubmitLoginButton() {
+        return clickLoginButton().submitLoginBtn;
     }
 }
+
+
+
+

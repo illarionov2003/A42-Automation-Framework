@@ -37,5 +37,7 @@ public class BasePage {
     public WebDriver getDriver(){
         return driver;
     }
-
+    public WebElement getAvatar() {
+      return driver.findElement(By.cssSelector("a .avatar"));
+    }
 }
