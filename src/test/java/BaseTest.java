@@ -1,7 +1,10 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
 import pages.BasePage;
+
+import java.net.MalformedURLException;
 
 public class BaseTest extends BasePage {
 
@@ -9,13 +12,13 @@ public class BaseTest extends BasePage {
     public String url = "https://bbb.testpro.io/";
 
 
-    @BeforeSuite
-    static void setupClass() {
-        WebDriverManager.chromedriver().setup();
-    }
+//    @BeforeSuite
+//    static void setupClass() {
+//        WebDriverManager.safaridriver().setup();
+//    }
 
     @BeforeMethod
-    public void setUpBrowser() {
+    public void setUpBrowser() throws MalformedURLException {
         basePage.initBrowser(url);
     }
 
@@ -23,6 +26,7 @@ public class BaseTest extends BasePage {
     public void tearDown() {
         basePage.closeBrowser();
     }
+
 
     @DataProvider(name="IncorrectLoginProviders")
     public static Object[][] getDataFromDataProviders(){

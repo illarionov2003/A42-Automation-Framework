@@ -33,5 +33,20 @@ public class SongsPage extends BasePage {
        return driver.findElements(By.cssSelector("[data-test='song-card']"));
     }
 
+    public WebElement getSoundBar(){
+        return waitUntilVisible(By.cssSelector("[data-testid='sound-bar-play']"));
+    }
+
+    public void clickPlayBtn() {
+        WebElement playBtn = driver.findElement(By.cssSelector(".playback"));
+        playBtn.click();
+    }
+
+    public void clickFirstSong() {
+        WebElement firstSong = driver.findElement(By.cssSelector(".song-item"));
+        Actions actions = new Actions(driver);
+        actions.contextClick(firstSong).perform();
+    }
+
 
 }

@@ -1,6 +1,4 @@
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -13,7 +11,6 @@ import pages.PlaylistsPage;
 import pages.SongsPage;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ActionsTests extends BaseTest {
 
@@ -43,7 +40,8 @@ public class ActionsTests extends BaseTest {
 
         // Soft assert example
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(basePage.getDriver().getCurrentUrl(), "https://bbb.testpro.io/#!/queue");
+        softAssert.assertEquals(basePage.getDriver().getCurrentUrl(),
+                "https://bbb.testpro.io/#!/queue");
         softAssert.assertTrue(songsNumberBefore == songsNumberAfter,
                 "=== Songs number before should be equal songs number after ===");
         softAssert.assertAll();
@@ -57,7 +55,7 @@ public class ActionsTests extends BaseTest {
 
         loginPage.login("demo@class.com", "te$t$tudent");
         String oldName = playlistsPage.getPlaylistName();
-        if(oldName.equals(playlistName)){
+        if (oldName.equals(playlistName)) {
             playlistName = "Winter songs";
         }
         System.out.println(playlistName);
@@ -72,17 +70,15 @@ public class ActionsTests extends BaseTest {
     @Test
     public void playSongFromListTest() throws InterruptedException {
         PageFactory.initElements(getDriver(), loginPage);
-        // right click
         loginPage.login("demo@class.com", "te$t$tudent");
         playlistsPage.goToAllSongs();
-        WebElement firstSong = basePage.getDriver().findElement(By.cssSelector(".song-item"));
-        Actions actions = new Actions(basePage.getDriver());
-        actions.contextClick(firstSong).perform();
-        WebElement playBtn = basePage.getDriver().findElement(By.cssSelector(".playback"));
-        playBtn.click();
+        songsPage.clickFirstSong();
+        songsPage.clickPlayBtn();
         Thread.sleep(4000);
-        basePage.waitUntilVisible(By.cssSelector("[data-testid='sound-bar-play']"));
+        Assert.assertTrue(songsPage.getSoundBar().isDisplayed());
     }
+
+
 
 
     @Test
@@ -93,7 +89,7 @@ public class ActionsTests extends BaseTest {
         playlist.click();
         List<WebElement> songs = basePage.getDriver().findElements(By.cssSelector("#playlistWrapper .song-item"));
         int number = songs.size();
-      //  Assert.assertEquals(number, 4); // can fail, depends on current number. This is just an example
+        //  Assert.assertEquals(number, 4); // can fail, depends on current number. This is just an example
 
     }
 
