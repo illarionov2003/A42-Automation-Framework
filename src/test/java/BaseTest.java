@@ -4,6 +4,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
 import pages.BasePage;
 
+import java.net.MalformedURLException;
+
 public class BaseTest extends BasePage {
 
     protected final BasePage basePage = new BasePage();
@@ -16,7 +18,7 @@ public class BaseTest extends BasePage {
 //    }
 
     @BeforeMethod
-    public void setUpBrowser() {
+    public void setUpBrowser() throws MalformedURLException {
         basePage.initBrowser(url);
     }
 
