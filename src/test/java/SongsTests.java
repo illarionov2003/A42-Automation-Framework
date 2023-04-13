@@ -1,3 +1,6 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -5,6 +8,9 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.PlaylistsPage;
 import pages.SongsPage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SongsTests extends BaseTest {
 
@@ -45,4 +51,19 @@ public class SongsTests extends BaseTest {
         // assert
         Assert.assertTrue(songsPage.getPauseButton().isDisplayed());
     }
+
+    @Test
+    public void addPlaylist() throws InterruptedException {
+        PageFactory.initElements(getDriver(), loginPage);
+        loginPage.login("demo@class.com", "te$t$tudent");
+        String plName = "Rock stars 2";
+        playlistsPage.createPlaylist(plName);
+        Thread.sleep(2000);
+        List<String> playlistNames = playlistsPage.getPlaylistNames();
+        System.out.println(playlistNames);
+        Assert.assertTrue(playlistNames.contains(plName));
+    }
+
+
+
 }
