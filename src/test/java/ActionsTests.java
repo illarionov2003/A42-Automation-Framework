@@ -79,8 +79,6 @@ public class ActionsTests extends BaseTest {
     }
 
 
-
-
     @Test
     public void countSongsInPlaylist() {
         PageFactory.initElements(getDriver(), loginPage);
@@ -90,7 +88,6 @@ public class ActionsTests extends BaseTest {
         List<WebElement> songs = basePage.getDriver().findElements(By.cssSelector("#playlistWrapper .song-item"));
         int number = songs.size();
         //  Assert.assertEquals(number, 4); // can fail, depends on current number. This is just an example
-
     }
 
 }

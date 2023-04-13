@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistsPage extends BasePage {
@@ -62,5 +63,34 @@ public class PlaylistsPage extends BasePage {
         String name = playlistElement.getText();
         return name;
     }
+
+    public void createPlaylist(String name) {
+        // click create playlist
+        WebElement createPlaylistBtn = getDriver().findElement(By.cssSelector("[data-testid='sidebar-create-playlist-btn']"));
+        createPlaylistBtn.click();
+        WebElement newPlaylist = getDriver().findElement(By.cssSelector("[data-testid='playlist-context-menu-create-simple']"));
+        newPlaylist.click();
+
+        // enter playlist name
+
+        WebElement playlistNameField = getDriver().findElement(By.cssSelector("input[name='name']"));
+        playlistNameField.click();
+        playlistNameField.clear();
+        playlistNameField.sendKeys(name);
+        playlistNameField.sendKeys(Keys.ENTER);
+    }
+
+    public List<String> getPlaylistNames() {
+        List<WebElement> playlists = getDriver().findElements(By.cssSelector(".playlist.playlist>a"));
+        int size = playlists.size(); // get size of the collection
+        List<String> playlistNames = new ArrayList<>();
+
+        for(int i = 0; i < (size-1); i++){
+            String name = playlists.get(i).getText();
+            playlistNames.add(name);
+        }
+        return playlistNames;
+    }
+
 
 }
