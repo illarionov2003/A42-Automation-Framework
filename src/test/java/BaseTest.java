@@ -5,6 +5,8 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.DataProvider;
 import pages.BasePage;
 
+import java.net.MalformedURLException;
+
 public class BaseTest {
     protected final BasePage basePage = new BasePage();
     public String url = "https://bbb.testpro.io/";
@@ -16,9 +18,9 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    public void setUpBrowser() {
-        basePage.initBrowser(url);
-    }
+    public void setUpBrowser() throws MalformedURLException {
+            basePage.initBrowser(url);
+        }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {

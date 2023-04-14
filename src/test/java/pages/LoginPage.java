@@ -16,7 +16,7 @@ public class LoginPage extends BasePage {
     WebElement emailInput;
     @FindBy(css = "button[type='submit']")
     WebElement submitLoginBtn;
-    By submitBtn = By.cssSelector("button[type='submit']");
+    private final By submitBtn = By.cssSelector("button[type='submit']");
     //By passwordField = By.cssSelector("[type ='password']");
     //By emailField =  By.xpath("//input[@type='email']");
     // By submitBtn = By.cssSelector("button[type='submit']");
