@@ -18,7 +18,7 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//input[@type='email']")
     WebElement emailInput;
 
-   // By emailField = By.xpath("//input[@type='email']");
+    By emailField = By.xpath("//input[@type='email']");
 
 //    @FindBy(css = "button[type='submit']")
 //    WebElement submitLoginButton;
@@ -40,7 +40,7 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage enterEmail(String email) {
-       // WebElement emailInput = waitUntilVisible(emailField);
+        WebElement emailInput = waitUntilVisible(emailField);
         emailInput.click();
         emailInput.clear();
         emailInput.sendKeys(email);
