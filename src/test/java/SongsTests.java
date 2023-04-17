@@ -1,15 +1,19 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 
+import java.sql.DriverManager;
 import java.util.List;
 
+import static java.sql.DriverManager.getDriver;
+
 public class SongsTests extends BaseTest {
-    LoginPage loginPage = new LoginPage();
+    LoginPage loginPage = new LoginPage(getDriver());
 
     @Test
     public void addSongToPlaylist()  {
@@ -43,4 +47,6 @@ public class SongsTests extends BaseTest {
         WebElement successBanner = basePage.getDriver().findElement(By.cssSelector(".success.show"));
         Assert.assertTrue(successBanner.isDisplayed());
     }
+
 }
+

@@ -42,6 +42,7 @@ public class ProfilePage extends BasePage{
     }
 
     public String generateRandomName() {
+
         return UUID.randomUUID().toString().replace("-", "");
     }
 }

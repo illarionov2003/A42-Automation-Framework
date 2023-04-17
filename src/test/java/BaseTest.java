@@ -38,6 +38,7 @@ public class BaseTest {
     }
 
     public BasePage getBasePage() {
+
         return basePage;
     }
 }

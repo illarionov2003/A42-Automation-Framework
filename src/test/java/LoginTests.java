@@ -6,16 +6,24 @@ import org.testng.annotations.Test;
 import pages.LoginPage;
 
 public class LoginTests extends BaseTest {
-    LoginPage loginPage = new LoginPage();
+    LoginPage loginPage = new LoginPage(basePage.getDriver());
+
+    @Test(dataProvider = "IncorrectLoginProviders", dataProviderClass = BaseTest.class)
+    public void negativeLoginTests(String email, String password) throws InterruptedException {
+        PageFactory.initElements(basePage.getDriver(), loginPage);
+        loginPage.login(email, password);
+        Thread.sleep(5000);
+        Assert.assertEquals(basePage.getDriver().getCurrentUrl(), url);
+    }
 
 
     @Test
     public void successfulLoginTest() {
-
         PageFactory.initElements(basePage.getDriver(), loginPage);
-        loginPage.enterEmail("demo@class.com").enterPassword("te$t$tudent").clickLoginButton();
-        //loginPage.login("demo@class.com", "te$t$tudent");
-        //WebElement avatar = basePage.getDriver().findElement(By.cssSelector("a .avatar"));
+        loginPage
+                .enterEmail("demo@class.com")
+                .enterPassword("te$t$tudent")
+                .clickLoginButton();
         Assert.assertTrue(basePage.getAvatar().isDisplayed());
     }
 
@@ -23,7 +31,6 @@ public class LoginTests extends BaseTest {
     public void wrongPasswordLoginTest() {
         PageFactory.initElements(basePage.getDriver(), loginPage);
         loginPage.login("demo@class.com", "te$t$tuden");
-        //WebElement submitLoginButton = basePage.getDriver().findElement(By.cssSelector("button[type='submit']"));
         Assert.assertTrue(loginPage.getSubmitLoginButton().isDisplayed());
     }
 
@@ -31,7 +38,7 @@ public class LoginTests extends BaseTest {
     public void emptyPasswordLoginTest() {
         PageFactory.initElements(basePage.getDriver(), loginPage);
         loginPage.login("demo@class.com", "");
-        WebElement submitLoginButton = basePage.getDriver().findElement(By.cssSelector("button[type='submit']"));
-        Assert.assertTrue(submitLoginButton.isDisplayed());
+        Assert.assertTrue(loginPage.getSubmitLoginButton().isDisplayed());
     }
+
 }
