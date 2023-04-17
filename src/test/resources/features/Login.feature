@@ -2,10 +2,15 @@ Feature: Login feature
 
 
   Scenario: Login Success
-    Given I open Login Page
+#    Given I open Login Page
     When I enter email "demo@class.com"
     And I enter password "te$t$tudent"
     And I submit
     Then I am logged in
 
-
+  Scenario: Login with invalid email
+#    Given I open Login Page
+    When I enter email "invalid@class.com"
+    And I enter password "te$t$tudent"
+    And I submit
+    Then I am logged in

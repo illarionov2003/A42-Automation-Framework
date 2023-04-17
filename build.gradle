@@ -43,11 +43,13 @@ task testSmoke(type: Test) {
 task testSongs(type: Test) {
     useTestNG() {
         suites "src/test/resources/SongTests.xml"
+        systemProperty "browser", System.getProperty("browser")
     }
 }
 
 task testLogin(type: Test) {
     useTestNG() {
         suites "src/test/resources/Cucumber.xml"
+        systemProperty "browser", System.getProperty("browser")
     }
 }
