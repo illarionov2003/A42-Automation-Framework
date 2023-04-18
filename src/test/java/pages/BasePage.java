@@ -78,7 +78,7 @@ public WebElement waitUntilClickable(By element){
         return THREAD_LOCAL.get();
     }
     public WebElement getAvatar() {
-        return driver.findElement(By.cssSelector("a .avatar"));
+        return getDriver().findElement(By.cssSelector("a .avatar"));
     }
 
     public WebDriver pickBrowser(String browser) throws MalformedURLException {
@@ -114,15 +114,15 @@ public WebElement waitUntilClickable(By element){
     }
     public WebDriver lambdaTest() throws MalformedURLException {
         String username = "illarionov2003";
-        String authkey = "•BY11Q4NmjU6cUm10269CbXnJVtx2lt6WMBng46lW232dYuuVkh";
+        String authkey = "BY11Q4NmjU6cUm10269CbXnJVtx2lt6WMBng46lW232dYuuVkh";
         String hub = "@hub.lambdatest.com/wd/hub";
 
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platform", "Windows 10");
         caps.setCapability("browserName", "Firefox");
-        caps.setCapability("version", "15.0");
+        caps.setCapability("version", "103.0");
         caps.setCapability("resolution", "1024x768");
-        caps.setCapability("build", "Koel Automation");
+        caps.setCapability("build", "TestNG With Java");
         caps.setCapability("name", this.getClass().getName());
         caps.setCapability("plugin", "git-testng");
 

@@ -19,8 +19,10 @@ public class LoginPage extends BasePage {
 //    WebElement passwordInput;
 //    @FindBy(xpath = "//input[@type='email']")
 //    WebElement emailInput;
-    @FindBy(css = "button[type='submit']")
-    WebElement submitLoginBtn;
+
+    //@FindBy(css = "button[type='submit']")
+    //WebElement submitLoginBtn;
+
     private final By submitBtn = By.cssSelector("button[type='submit']");
     By passwordField = By.cssSelector("[type ='password']");
     By emailField =  By.xpath("//input[@type='email']");
@@ -31,31 +33,39 @@ public class LoginPage extends BasePage {
         clickLoginButton();
     }
     public LoginPage enterPassword(String password) {
-        WebElement passwordInput = driver.findElement(passwordField);
+        WebElement passwordInput = getDriver().findElement(passwordField);
         passwordInput.click();
         passwordInput.clear();
         passwordInput.sendKeys(password);
         return this;
     }
     public LoginPage enterEmail(String email) {
-        WebElement emailInput = driver.findElement(emailField);
+        //WebElement emailInput = driver.findElement(emailField);
+        WebElement emailInput = getDriver().findElement(emailField);
         emailInput.click();
         emailInput.clear();
         emailInput.sendKeys(email);
         return this;
     }
-    public LoginPage clickLoginButton() {
-        // WebElement submitLoginButton = driver.findElement(submitBtn);
-        submitLoginBtn.click();
-        return this;
-    }
-    public WebElement getSubmitLoginButton() {
-
-        return clickLoginButton().submitLoginBtn;
-    }
-
+//    public LoginPage clickLoginButton() {
+//        WebElement submitButton = getDriver().findElement(submitBtn);
+//        submitButton.click();
+//        return this;
+//    }
+//
+//    public WebElement getSubmitLoginButton() {
+//        return getDriver().findElement(submitBtn);
+//    }
+public LoginPage clickLoginButton() {
+    WebElement submitButton = getDriver().findElement(submitBtn);
+    submitButton.click();
+    return this;
 }
 
+    public WebElement getSubmitLoginButton() {
+        return getDriver().findElement(submitBtn);
+    }
 
 
+}
 

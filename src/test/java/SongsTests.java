@@ -6,11 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.LoginPage;
-
-import java.sql.DriverManager;
 import java.util.List;
-
-import static java.sql.DriverManager.getDriver;
 
 public class SongsTests extends BaseTest {
     LoginPage loginPage = new LoginPage(getDriver());

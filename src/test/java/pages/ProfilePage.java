@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import java.util.UUID;
 
 public class ProfilePage extends BasePage{
+
+
     public String getProfileName() {
         WebElement profileName = driver.findElement(By.cssSelector("span.name"));
         return profileName.getText();
@@ -37,7 +39,7 @@ public class ProfilePage extends BasePage{
     }
 
     public void openProfile() {
-        WebElement profile =driver.findElement(By.cssSelector(".view-profile"));
+        WebElement profile =getDriver().findElement(By.cssSelector(".view-profile"));
         profile.click();
     }
 

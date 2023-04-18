@@ -7,7 +7,7 @@ import pages.BasePage;
 
 import java.net.MalformedURLException;
 
-public class BaseTest {
+public class BaseTest extends BasePage{
     protected final BasePage basePage = new BasePage();
     public String url = "https://bbb.testpro.io/";
 

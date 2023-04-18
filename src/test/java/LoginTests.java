@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import pages.LoginPage;
 
 public class LoginTests extends BaseTest {
-    LoginPage loginPage = new LoginPage(basePage.getDriver());
+    LoginPage loginPage = new LoginPage(getDriver());
 
     @Test(dataProvider = "IncorrectLoginProviders", dataProviderClass = BaseTest.class)
     public void negativeLoginTests(String email, String password) throws InterruptedException {
