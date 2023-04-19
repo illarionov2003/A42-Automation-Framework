@@ -6,7 +6,7 @@ import pages.ProfilePage;
 import static java.sql.DriverManager.getDriver;
 
 public class ProfileTests extends BaseTest {
-    LoginPage loginPage = new LoginPage(basePage.getDriver());
+    LoginPage loginPage = new LoginPage();
     ProfilePage profilePage = new ProfilePage();
 
     @Test

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import pages.LoginPage;
 
 public class LoginTests extends BaseTest {
-    LoginPage loginPage = new LoginPage(getDriver());
+    LoginPage loginPage = new LoginPage();
 
     @Test(dataProvider = "IncorrectLoginProviders", dataProviderClass = BaseTest.class)
     public void negativeLoginTests(String email, String password) throws InterruptedException {
@@ -40,5 +40,4 @@ public class LoginTests extends BaseTest {
         loginPage.login("demo@class.com", "");
         Assert.assertTrue(loginPage.getSubmitLoginButton().isDisplayed());
     }
-
 }

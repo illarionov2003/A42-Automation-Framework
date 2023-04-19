@@ -26,12 +26,16 @@ public class BasePage {
     WebDriverWait wait;
 
     //
-    public static WebDriver getThreadLocal() {
-
+    public static WebDriver getDriver() {
         return THREAD_LOCAL.get();
     }
 
-//    public void initBrowser(String url) throws MalformedURLException {
+    public static void closeBrowser() {
+        THREAD_LOCAL.get().close();
+        THREAD_LOCAL.remove();
+    }
+
+    //    public void initBrowser(String url) throws MalformedURLException {
 //        SafariOptions options = new SafariOptions();
 ////        options.addArguments("--disable-notifications");
 ////        options.addArguments("--remote-allow-origins=*");
@@ -41,45 +45,38 @@ public class BasePage {
 //        driver.manage().window().maximize();
 //        driver.get(url);
     //}
-public void initBrowser(@Optional String url) throws MalformedURLException {
-    THREAD_LOCAL.set(pickBrowser("browser"));
-    THREAD_LOCAL.get().manage().window().maximize();
-    THREAD_LOCAL.get().manage().deleteAllCookies();
-    THREAD_LOCAL.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    getThreadLocal().get(url);
-    System.out.println(
-            "Browser setup by Thread " + Thread.currentThread().getId() + " and Driver reference is : " + getThreadLocal());
+    public void initBrowser(@Optional String url) throws MalformedURLException {
+        THREAD_LOCAL.set(pickBrowser("browser"));
+        THREAD_LOCAL.get().manage().window().maximize();
+        THREAD_LOCAL.get().manage().deleteAllCookies();
+        THREAD_LOCAL.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        getDriver().get(url);
+        System.out.println(
+                "Browser setup by Thread " + Thread.currentThread().getId() + " and Driver reference is : " + getDriver());
 
-}
-    public static void closeBrowser() {
-        // driver.quit();
-        THREAD_LOCAL.get().close();
-        THREAD_LOCAL.remove();
     }
 
-//    public WebDriver waitUntilVisible(By element) {
+    //    public WebDriver waitUntilVisible(By element) {
 //        return (WebDriver) wait.until(ExpectedConditions.visibilityOfElementLocated(element));
 //    }
-public WebElement waitUntilVisible(By element){
-    return new WebDriverWait(THREAD_LOCAL.get(), Duration.ofSeconds(4)).until(ExpectedConditions.visibilityOfElementLocated(element));
-}
+    public WebElement waitUntilVisible(By element) {
+        return new WebDriverWait(THREAD_LOCAL.get(), Duration.ofSeconds(4)).until(ExpectedConditions.visibilityOfElementLocated(element));
+    }
 
-//    public WebDriver waitUntilClickable(By element) {
+    //    public WebDriver waitUntilClickable(By element) {
 //        return (WebDriver) wait.until(ExpectedConditions.elementToBeClickable(element));
 //    }
-public WebElement waitUntilClickable(By element){
-    return new WebDriverWait(THREAD_LOCAL.get(), Duration.ofSeconds(4)).until(ExpectedConditions.elementToBeClickable(element));
-}
-
-//    public WebDriver getDriver() {
-//        return driver;
-//    }
-    public WebDriver getDriver(){
-        return THREAD_LOCAL.get();
+    public WebElement waitUntilClickable(By element) {
+        return new WebDriverWait(THREAD_LOCAL.get(), Duration.ofSeconds(4)).until(ExpectedConditions.elementToBeClickable(element));
     }
+
     public WebElement getAvatar() {
         return getDriver().findElement(By.cssSelector("a .avatar"));
     }
+
+    //    public WebDriver getDriver() {
+//        return driver;
+//    }
 
     public WebDriver pickBrowser(String browser) throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -100,10 +97,11 @@ public WebElement waitUntilClickable(By element){
             case "grid-chrome":
                 capabilities.setCapability("browserName", "chrome");
                 return driver = new RemoteWebDriver(URI.create(gridURL).toURL(), capabilities);
-//              case "cloud":
-
             default: // changed lambda to default, so it's not using existing chrome
-                return lambdaTest();
+                WebDriverManager.chromedriver().setup();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--disable-notifications", "--remote-allow-origins=*", "--incognito", "--start-maximized");
+                return driver = new ChromeDriver(options);
 //            default:
 //                WebDriverManager.chromedriver().setup();
 //                ChromeOptions options = new ChromeOptions();
@@ -112,6 +110,7 @@ public WebElement waitUntilClickable(By element){
 //                return driver = new ChromeDriver(options);
         }
     }
+
     public WebDriver lambdaTest() throws MalformedURLException {
         String username = "illarionov2003";
         String authkey = "BY11Q4NmjU6cUm10269CbXnJVtx2lt6WMBng46lW232dYuuVkh";
