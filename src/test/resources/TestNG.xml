@@ -5,10 +5,11 @@
 <suite name="TestNG" parallel="methods" thread-count="2">
     <test name="Example Test" preserve-order="false">
         <classes>
-            <class name="LoginTests"/>
-            <class name="BaseTest"/>
-            <class name="ProfileTests"/>
-            <class name="SongsTests"/>
+            <class name="CucumberRunner"/>
+<!--            <class name="LoginTests"/>-->
+<!--            <class name="BaseTest"/>-->
+<!--            <class name="ProfileTests"/>-->
+<!--            <class name="SongsTests"/>-->
         </classes>
     </test>
 </suite>
