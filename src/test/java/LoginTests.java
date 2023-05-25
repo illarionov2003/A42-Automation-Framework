@@ -1,6 +1,6 @@
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.LoginPage;
@@ -9,13 +9,12 @@ public class LoginTests extends BaseTest {
     LoginPage loginPage = new LoginPage();
 
     @Test(dataProvider = "IncorrectLoginProviders", dataProviderClass = BaseTest.class)
-    public void negativeLoginTests(String email, String password) throws InterruptedException {
+    public void negativeLoginTests(String email, String password) {
         PageFactory.initElements(basePage.getDriver(), loginPage);
         loginPage.login(email, password);
-        Thread.sleep(5000);
+
         Assert.assertEquals(basePage.getDriver().getCurrentUrl(), url);
     }
-
 
     @Test
     public void successfulLoginTest() {

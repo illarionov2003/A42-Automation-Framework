@@ -1,5 +1,4 @@
 package pages;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,11 +9,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-import org.openqa.selenium.safari.SafariOptions;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Optional;
-
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -25,7 +23,6 @@ public class BasePage {
     static WebDriver driver;
     WebDriverWait wait;
 
-    //
     public static WebDriver getDriver() {
         return THREAD_LOCAL.get();
     }
@@ -35,16 +32,6 @@ public class BasePage {
         THREAD_LOCAL.remove();
     }
 
-    //    public void initBrowser(String url) throws MalformedURLException {
-//        SafariOptions options = new SafariOptions();
-////        options.addArguments("--disable-notifications");
-////        options.addArguments("--remote-allow-origins=*");
-//        driver = pickBrowser(System.getProperty("browser"));
-//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-//        wait = new WebDriverWait(driver, Duration.ofSeconds(4));
-//        driver.manage().window().maximize();
-//        driver.get(url);
-    //}
     public void initBrowser(@Optional String url) throws MalformedURLException {
         THREAD_LOCAL.set(pickBrowser("browser"));
         THREAD_LOCAL.get().manage().window().maximize();
@@ -56,16 +43,10 @@ public class BasePage {
 
     }
 
-    //    public WebDriver waitUntilVisible(By element) {
-//        return (WebDriver) wait.until(ExpectedConditions.visibilityOfElementLocated(element));
-//    }
     public WebElement waitUntilVisible(By element) {
         return new WebDriverWait(THREAD_LOCAL.get(), Duration.ofSeconds(4)).until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
-    //    public WebDriver waitUntilClickable(By element) {
-//        return (WebDriver) wait.until(ExpectedConditions.elementToBeClickable(element));
-//    }
     public WebElement waitUntilClickable(By element) {
         return new WebDriverWait(THREAD_LOCAL.get(), Duration.ofSeconds(4)).until(ExpectedConditions.elementToBeClickable(element));
     }
@@ -73,10 +54,6 @@ public class BasePage {
     public WebElement getAvatar() {
         return getDriver().findElement(By.cssSelector("a .avatar"));
     }
-
-    //    public WebDriver getDriver() {
-//        return driver;
-//    }
 
     public WebDriver pickBrowser(String browser) throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -102,12 +79,6 @@ public class BasePage {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--disable-notifications", "--remote-allow-origins=*", "--incognito", "--start-maximized");
                 return driver = new ChromeDriver(options);
-//            default:
-//                WebDriverManager.chromedriver().setup();
-//                ChromeOptions options = new ChromeOptions();
-//                options.addArguments("--disable-notifications");
-//                options.addArguments("--remote-allow-origins=*");
-//                return driver = new ChromeDriver(options);
         }
     }
 
